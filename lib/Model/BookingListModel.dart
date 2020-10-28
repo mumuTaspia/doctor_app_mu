@@ -26,11 +26,11 @@ class BookingModel {
   int doctorId;
   int patientId;
   DateTime appointDate;
-  dynamic problems;
-  dynamic test;
-  dynamic solution;
-  dynamic advice;
-  Status status;
+  String problems;
+  String test;
+  String solution;
+  String advice;
+  String status;
   DateTime takingTime;
 
   factory BookingModel.fromJson(Map<String, dynamic> json) => BookingModel(
@@ -42,7 +42,7 @@ class BookingModel {
     test: json["test"],
     solution: json["solution"],
     advice: json["advice"],
-    status: statusValues.map[json["status"]],
+    status: json["status"],
     takingTime: DateTime.parse(json["taking_time"]),
   );
 
@@ -55,28 +55,7 @@ class BookingModel {
     "test": test,
     "solution": solution,
     "advice": advice,
-    "status": statusValues.reverse[status],
+    "status": status,
     "taking_time": takingTime.toIso8601String(),
   };
-}
-
-enum Status { CREATED, PENDING }
-
-final statusValues = EnumValues({
-  "Created": Status.CREATED,
-  "Pending": Status.PENDING
-});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
-    return reverseMap;
-  }
 }

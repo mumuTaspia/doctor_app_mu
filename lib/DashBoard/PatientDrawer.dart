@@ -1,5 +1,8 @@
 
 import 'package:doctor_app_mu/Login.dart';
+import 'package:doctor_app_mu/PatientBookingList/PatientAcceptBooking.dart';
+import 'package:doctor_app_mu/PatientBookingList/PatientCompleteBookingList.dart';
+import 'package:doctor_app_mu/PatientBookingList/PatientNewBooking.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -44,7 +47,7 @@ class PatientDrawer extends StatelessWidget {
                 ),
 
                 Container(
-                  height: 35,
+                  height: 45,
                   child: ListTile(
                     contentPadding:
                     EdgeInsets.only(bottom: 0.0, left: 15.0, right: 14.0,top: 0),
@@ -62,23 +65,57 @@ class PatientDrawer extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  height: 35,
+                  height: 45,
                   child: ListTile(
                     contentPadding: EdgeInsets.only(top: 0.0, left: 15.0, right: 14.0,bottom: 0),
-                    title: customText('My Bookings'),
+                    title: customText('My New Bookings'),
                     trailing: Icon(
                       Icons.arrow_forward_ios,
                       size: 15.0,
                     ),
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => MyBookingList(),),
-                    //  );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => PatientBookingList(),),
+                     );
+                    },
+                  ),
+                ),
+ Container(
+                  height: 45,
+                  child: ListTile(
+                    contentPadding: EdgeInsets.only(top: 0.0, left: 15.0, right: 14.0,bottom: 0),
+                    title: customText('My Accept Bookings'),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 15.0,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => PatientAcceptBookingList(),),
+                     );
                     },
                   ),
                 ),
 
+                 Container(
+                  height: 45,
+                  child: ListTile(
+                    contentPadding: EdgeInsets.only(top: 0.0, left: 15.0, right: 14.0,bottom: 0),
+                    title: customText('My Complete Bookings'),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 15.0,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => PatientCompleteBookingList(),),
+                     );
+                    },
+                  ),
+                ),
 
                 GestureDetector(
                   onTap: () {

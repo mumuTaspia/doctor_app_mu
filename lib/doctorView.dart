@@ -28,12 +28,12 @@ class _DoctorViewState extends State<DoctorView> {
     return sharedPreferences.getString(nameKey);
   }
 
-  Future conffireBook(time) async{
+  Future confirmBook(time) async{
     setState(() {
       _isLoadinBook = true;
     });
     var id =await loaddata();
-    print(id);
+    print(time);
     final response =await http.post("https://doctor-api.appstic.xyz/createappointment",body: ({
       'doctor_id':widget.docId,
       'patient_id':'25',
@@ -82,8 +82,9 @@ class _DoctorViewState extends State<DoctorView> {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+        firstDate: DateTime(2020, 9),
+        lastDate: DateTime(2101)
+        );
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
@@ -221,9 +222,9 @@ class _DoctorViewState extends State<DoctorView> {
               RaisedButton(
                 color: Colors.blueAccent,
                 onPressed: () {
-                  String formattedDate = DateFormat('yyyy-MM-dd kk:mm:ss').format(selectedDate);
+                  String formattedDate = DateFormat('yyyy-MM-dd hh:mm:ss').format(selectedDate);
                   print(formattedDate);
-                  conffireBook(formattedDate);
+                  confirmBook(formattedDate);
 
                 },
                 child: Text("BOOK AN APPOINTMENT"),

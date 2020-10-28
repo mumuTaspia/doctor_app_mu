@@ -4,7 +4,6 @@ import 'package:doctor_app_mu/DashBoard/DoctorDashBoard.dart';
 import 'package:doctor_app_mu/DashBoard/PatientDashBoard.dart';
 import 'package:doctor_app_mu/SignUp/PatientsSignUp.dart';
 import 'package:doctor_app_mu/SignUp/SpecialistList.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -17,11 +16,17 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
 
       String nameKey = "_key_name";
+      String type = 'type';
       bool _isLoading = false;
 
   Future<void> saveData(String msg) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString(nameKey, msg);
+  }
+
+   Future<void> saveType(String msg) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString(type, msg);
   }
   TextEditingController userName = TextEditingController();
   TextEditingController pass = TextEditingController();
@@ -41,20 +46,27 @@ String loginStatus="";
     var data = json.decode(response.body);
 
     print("login data "+data.toString());
-    print(data['user']['type']);
+   // print(data['user']['type']);
       setState(() {
       _isLoading = false;
     });
     if(data['status']=='SUCCESS'){
+      var userid = data['user']['id'].toString();
+print("Print "+userid);
+ await saveData(userid);
 if(data['user']['type']=="doctor"){
+await saveType("doctor");
 
-await saveData(data['user']['id'].toString());
+
+
+
   Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => DocDashBoard()),
   );
 }
 else{
+  await saveType("patient");
   Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => PatientDashBoard()),
@@ -117,7 +129,7 @@ else{
                          controller: userName,
                           keyboardType: TextInputType.text,
                           decoration: new InputDecoration(
-                            labelText: 'Your Shop Username',
+                            labelText: 'Doctor or Patient Username',
                             border: new OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(0),
                             ),

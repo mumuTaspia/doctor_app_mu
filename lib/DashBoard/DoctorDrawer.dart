@@ -1,5 +1,8 @@
 
-import 'package:doctor_app_mu/DashBoard/BookingListByDoctor.dart';
+import 'package:doctor_app_mu/BookingListDoctor/DocPendingList.dart';
+import 'package:doctor_app_mu/BookingListDoctor/DoctorAcceptList.dart';
+import 'package:doctor_app_mu/BookingListDoctor/DoctorCompleteList.dart';
+
 import 'package:doctor_app_mu/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,13 +15,14 @@ class DoctorDrawer extends StatelessWidget {
     );
   }
   String id = "_key_name";
+   String type = 'type';
   //String accesskey = "access_token";
   // String userId = "user_id";
 
   Future<void> removeData(BuildContext context) async {
     SharedPreferences sharedPreference = await SharedPreferences.getInstance();
-    await sharedPreference
-      ..remove(id);
+    await sharedPreference.remove(id);
+    await sharedPreference.remove(type);
 
 
     Navigator.pop(context);
@@ -30,6 +34,8 @@ class DoctorDrawer extends StatelessWidget {
       MaterialPageRoute(builder: (context) => Login()),
     );
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +51,7 @@ class DoctorDrawer extends StatelessWidget {
                 ),
 
                 Container(
-                  height: 35,
+                  height: 45,
                   child: ListTile(
                     contentPadding:
                     EdgeInsets.only(bottom: 0.0, left: 15.0, right: 14.0,top: 0),
@@ -63,10 +69,10 @@ class DoctorDrawer extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  height: 35,
+                  height: 45,
                   child: ListTile(
                     contentPadding: EdgeInsets.only(top: 0.0, left: 15.0, right: 14.0,bottom: 0),
-                    title: customText('Patients Bookings'),
+                    title: customText('Patients New Bookings'),
                     trailing: Icon(
                       Icons.arrow_forward_ios,
                       size: 15.0,
@@ -74,11 +80,50 @@ class DoctorDrawer extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => BookingListByDoctor(),),
+                        MaterialPageRoute(builder: (context) => DoctorPendingList(),),
                        );
                     },
                   ),
                 ),
+
+                  Container(
+                  height: 45,
+                  child: ListTile(
+                    contentPadding: EdgeInsets.only(top: 0.0, left: 15.0, right: 14.0,bottom: 0),
+                    title: customText('Booking Accept List'),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 15.0,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DoctorAcceptList(),),
+                       );
+                    },
+                  ),
+                ),
+
+                  Container(
+                  height: 45,
+                  child: ListTile(
+                    contentPadding: EdgeInsets.only(top: 0.0, left: 15.0, right: 14.0,bottom: 0),
+                    title: customText('Booking Complete list'),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 15.0,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DoctorCompleteList(),),
+                       );
+                    },
+                  ),
+                ),
+
+                
+
 
 
                 GestureDetector(
