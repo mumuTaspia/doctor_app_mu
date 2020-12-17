@@ -20,6 +20,7 @@ class BookingModel {
     this.advice,
     this.status,
     this.takingTime,
+    this.serial,
   });
 
   int id;
@@ -32,6 +33,7 @@ class BookingModel {
   String advice;
   String status;
   DateTime takingTime;
+  String serial;
 
   factory BookingModel.fromJson(Map<String, dynamic> json) => BookingModel(
     id: json["id"],
@@ -43,6 +45,7 @@ class BookingModel {
     solution: json["solution"],
     advice: json["advice"],
     status: json["status"],
+    serial: json["serial"],
     takingTime: DateTime.parse(json["taking_time"]),
   );
 
@@ -57,5 +60,6 @@ class BookingModel {
     "advice": advice,
     "status": status,
     "taking_time": takingTime.toIso8601String(),
+    "serial":serial,
   };
 }

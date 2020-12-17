@@ -62,10 +62,16 @@ class _BookingListByDoctorState extends State<PatientBookingList> {
     return Scaffold(
      drawer: PatientDrawer(),
       appBar: AppBar(title: Text("New Booking List"),),
-      body: _isLoading ? CircularProgressIndicator() : Container(
+      body: _isLoading ? Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Center(child: CircularProgressIndicator())) : Container(
         height: MediaQuery.of(context).size.height,
         width:    MediaQuery.of(context).size.width,
-        child: ListView.builder(
+        child: bookingList.length ==0 ?Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Center(child: Text("No New Booking")))  : ListView.builder(
             itemCount: bookingList.length,
             itemBuilder: (BuildContext context, int index){
                String formattedDate = DateFormat('yyyy-MMM-dd').format(bookingList[index].appointDate);
@@ -76,7 +82,7 @@ class _BookingListByDoctorState extends State<PatientBookingList> {
              child: Card(
               elevation: 4,
                  child: Column(children: [
-                   Text("ID : "+bookingList[index].id.toString()),
+                   Text("Serial : "+(bookingList[index].serial==null ? "" : bookingList[index].serial.toString())),
                    Text("Appoint Time : "+formattedDate),
                    Text(bookingList[index].status.toString()),
                       RaisedButton(

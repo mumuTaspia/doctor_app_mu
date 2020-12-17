@@ -1,4 +1,5 @@
 
+import 'package:doctor_app_mu/EditProfile.dart';
 import 'package:doctor_app_mu/Login.dart';
 import 'package:doctor_app_mu/PatientBookingList/PatientAcceptBooking.dart';
 import 'package:doctor_app_mu/PatientBookingList/PatientCompleteBookingList.dart';
@@ -14,13 +15,14 @@ class PatientDrawer extends StatelessWidget {
     );
   }
   String id = "_key_name";
+  String type = 'type';
   //String accesskey = "access_token";
  // String userId = "user_id";
 
   Future<void> removeData(BuildContext context) async {
     SharedPreferences sharedPreference = await SharedPreferences.getInstance();
-    await sharedPreference
-      ..remove(id);
+    await sharedPreference.remove(id);
+    await sharedPreference.remove(type);
 
 
     Navigator.pop(context);
@@ -57,10 +59,10 @@ class PatientDrawer extends StatelessWidget {
                       size: 15.0,
                     ),
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => PatientProfile()),
-                      // );
+                       Navigator.push(
+                         context,
+                         MaterialPageRoute(builder: (context) => EditProfile()),
+                       );
                     },
                   ),
                 ),

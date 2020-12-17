@@ -42,19 +42,20 @@ var data ;
           'address': chamber_address.text,
           'birthday': "01/01/1995",
           'description': doc_desc.text,
-          'status': 'Active',
+          'status': 'Inactive',
         }));
 
     
-    data = json.decode(responce.body);
-    print(data);
+   var data2 = json.decode(responce.body);
+    print(data2);
     setState(() {
       _isLoading = false;
     });
 
 if(responce.statusCode==200){
-  if(data["status"]=="SUCCESS"){
+  if(data2["status"]=="SUCCESS"){
 
+    data = data2["message"];
        Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => ThanksSignUp()),
@@ -184,7 +185,7 @@ if(responce.statusCode==200){
               ),
                 Container(
                 child: _isLoading ? CircularProgressIndicator() : Container(
-                  child: Text(data.toString()),
+                  child: Text(data == null ? "" : data.toString()),
                 ),
               ),
             
@@ -195,7 +196,25 @@ if(responce.statusCode==200){
                 color: Colors.blueAccent,
                 child: Text("SIGN UP",style: TextStyle(color: Colors.white),),
                 onPressed: (){
-                addPatientData();
+                  if(doc_phone.text.length ==  11){
+
+                  //  print(doc_phone.text.substring(0,2)=="01");
+
+                    if(doc_phone.text.substring(0,2) == "01"){
+                      addPatientData();
+                    }
+                    else{
+                      data = "Phone Number invalid";
+                    }
+                  }
+                  else{
+                    data = "Phone Number invalid";
+                  }
+
+                  setState(() {
+
+                  });
+
 
               }),
             

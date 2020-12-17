@@ -31,6 +31,7 @@ var updateResponce;
      setState(() {
        _isloadingAccept = false;
      });
+     await getUserData(status);
 
        
   Navigator.pop(context);
@@ -56,7 +57,31 @@ setState(() {
 
   }
 
-  @override
+Future getUserData(status) async {
+
+  final responce = await http.post("https://doctor-api.appstic.xyz/getuser/"+widget.patientId);
+
+  var data = json.decode(responce.body);
+
+  var  userToken = data[0]['fb_token'];
+
+  print(userToken);
+
+  final responceNotification = await http.post("https://doctor-api.appstic.xyz/notification.php",body: ({
+    'fb_token':userToken,
+    'status': "Booking $status"
+  }));
+
+  var dataNotifi = json.decode(responceNotification.body);
+
+
+
+  print(dataNotifi);
+
+}
+
+
+@override
   void initState() {
     // TODO: implement initState
      getPatientData() ;
@@ -68,7 +93,10 @@ setState(() {
     return Scaffold(
       appBar: AppBar(title: Text("Booking Accept"),),
       body: SingleChildScrollView(
-        child: _isLoading ? CircularProgressIndicator() : Container(
+        child: _isLoading ? Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Center(child: CircularProgressIndicator())) : Container(
           height: MediaQuery.of(context).size.height,
           width:   MediaQuery.of(context).size.width,
       child:  Column(children: [
@@ -93,7 +121,7 @@ setState(() {
                        color: Colors.red,
                        child:Text("Cencel",style:TextStyle(color: Colors.white)),
                        onPressed: (){
-updateStatus("Cancel");
+updateStatus("cancelbydoctor");
 
                        }),
                         RaisedButton(

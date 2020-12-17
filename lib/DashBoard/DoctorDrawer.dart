@@ -1,7 +1,9 @@
 
+import 'package:doctor_app_mu/BookingListDoctor/CancelByDoctor.dart';
 import 'package:doctor_app_mu/BookingListDoctor/DocPendingList.dart';
 import 'package:doctor_app_mu/BookingListDoctor/DoctorAcceptList.dart';
 import 'package:doctor_app_mu/BookingListDoctor/DoctorCompleteList.dart';
+import 'package:doctor_app_mu/EditProfile.dart';
 
 import 'package:doctor_app_mu/Login.dart';
 import 'package:flutter/material.dart';
@@ -61,10 +63,10 @@ class DoctorDrawer extends StatelessWidget {
                       size: 15.0,
                     ),
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => PatientProfile()),
-                      // );
+                       Navigator.push(
+                         context,
+                         MaterialPageRoute(builder: (context) => EditProfile()),
+                       );
                     },
                   ),
                 ),
@@ -117,12 +119,30 @@ class DoctorDrawer extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => DoctorCompleteList(),),
-                       );
+                      );
                     },
                   ),
                 ),
 
-                
+                Container(
+                  height: 45,
+                  child: ListTile(
+                    contentPadding: EdgeInsets.only(top: 0.0, left: 15.0, right: 14.0,bottom: 0),
+                    title: customText('Booking Cancel list'),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 15.0,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CancelDoctorList(),),
+                      );
+                    },
+                  ),
+                ),
+
+
 
 
 

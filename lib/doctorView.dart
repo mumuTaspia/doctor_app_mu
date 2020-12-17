@@ -33,10 +33,10 @@ class _DoctorViewState extends State<DoctorView> {
       _isLoadinBook = true;
     });
     var id =await loaddata();
-    print(time);
+    print("id "+id);
     final response =await http.post("https://doctor-api.appstic.xyz/createappointment",body: ({
       'doctor_id':widget.docId,
-      'patient_id':'25',
+      'patient_id':id,
       'appoint_date':time,
       "status":"Pending",
 
@@ -108,7 +108,10 @@ class _DoctorViewState extends State<DoctorView> {
         title: Text("Book Your Doctor"),
       ),
       body: SingleChildScrollView(
-        child: _isLoading ? CircularProgressIndicator() :  Container(
+        child: _isLoading ? Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Center(child: CircularProgressIndicator())) :  Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child:  Column(

@@ -37,7 +37,10 @@ bool _isLoading = true;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Specilist List"),),
-      body: _isLoading ? CircularProgressIndicator() : Container(
+      body: _isLoading ? Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: CircularProgressIndicator()) : Container(
         height: MediaQuery.of(context).size.height,
         child: ListView.builder(
             itemCount: spList.length,

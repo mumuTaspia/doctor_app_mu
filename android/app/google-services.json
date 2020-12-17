@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "753619592044",
+    "firebase_url": "https://doctor-app-mu.firebaseio.com",
+    "project_id": "doctor-app-mu",
+    "storage_bucket": "doctor-app-mu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753619592044:android:1c933e0eca651eac774949",
+        "android_client_info": {
+          "package_name": "com.example.doctor_app_mu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "753619592044-o3bjjrideo5scfbrm0usq0qbtlcendls.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBsO1oU4X8Bywyc2ad6g4T_ZO9TkM2yH0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "753619592044-o3bjjrideo5scfbrm0usq0qbtlcendls.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

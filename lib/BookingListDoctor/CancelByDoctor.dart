@@ -8,13 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-class DoctorAcceptList extends StatefulWidget {
+class CancelDoctorList extends StatefulWidget {
   @override
   _BookingListByDoctorState createState() => _BookingListByDoctorState();
 }
 
-class _BookingListByDoctorState extends State<DoctorAcceptList> {
-  
+class _BookingListByDoctorState extends State<CancelDoctorList> {
+
   List<BookingModel> bookingList = List();
 
   bool _isLoading = true ;
@@ -28,8 +28,8 @@ class _BookingListByDoctorState extends State<DoctorAcceptList> {
   }
 
   Future getBookingList() async {
-    String userid = await loadData() ;
-    final responce = await http.post("https://doctor-api.appstic.xyz/appointmentbystatusdoctor/accept/"+userid);
+    var username = await loadData();
+    final responce = await http.post("https://doctor-api.appstic.xyz/appointmentbystatusdoctor/cancelbydoctor/"+username);
 
     setState(() {
       _isLoading = false;
@@ -42,19 +42,19 @@ class _BookingListByDoctorState extends State<DoctorAcceptList> {
       bookingList.add(BookingModel.fromJson(note));
     }
   }
-  
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getBookingList();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: DoctorDrawer(),
-      appBar: AppBar(title: Text("Accept List"),),
+      appBar: AppBar(title: Text("Cancel By Doctor List"),),
       body: _isLoading ? Container(
           height:MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
@@ -64,38 +64,38 @@ class _BookingListByDoctorState extends State<DoctorAcceptList> {
         child: bookingList.length ==0 ? Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          child: Center(child: Text("No Accept Data")),) : ListView.builder(
+          child: Center(child: Text("No Cancel Data")),) : ListView.builder(
             itemCount: bookingList.length,
             itemBuilder: (BuildContext context, int index){
-               String formattedDate = DateFormat('yyyy-MMM-dd ').format(bookingList[index].appointDate);
-    //     print(formattedDate);
-           return  Container(
-             margin: EdgeInsets.all(10),
-            // padding: EdgeInsets.all(10),
-             child: Card(
-              elevation: 4,
-                 child: Column(children: [
-                   Text("id : "+bookingList[index].id.toString()),
+              String formattedDate = DateFormat('yyyy-MMM-dd ').format(bookingList[index].appointDate);
+              //     print(formattedDate);
+              return  Container(
+                margin: EdgeInsets.all(10),
+                // padding: EdgeInsets.all(10),
+                child: Card(
+                  elevation: 4,
+                  child: Column(children: [
+                    Text("id : "+bookingList[index].id.toString()),
 
-                   Text("Serial : "+(bookingList[index].serial == null ? "0" :bookingList[index].serial.toString())),
-                   Text("Appoint Time : "+formattedDate),
-                   Text(bookingList[index].status.toString()),
-                      RaisedButton(
-                       color: Colors.blue,
-                       child:Text("Next >>",style:TextStyle(color: Colors.white)),
-                       onPressed: (){
+                    Text("Serial : "+(bookingList[index].serial == null ? "0" :bookingList[index].serial.toString())),
+                    Text("Appoint Time : "+formattedDate),
+                    Text(bookingList[index].status.toString()),
+//                    RaisedButton(
+//                        color: Colors.blue,
+//                        child:Text("Next >>",style:TextStyle(color: Colors.white)),
+//                        onPressed: (){
+//
+//                          Navigator.push(
+//                            context,
+//                            MaterialPageRoute(builder: (context) => BookingComplete(patientId: bookingList[index].patientId.toString(),bookid: bookingList[index].id.toString(),)),
+//                          );
+//                        }),
 
-                          Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => BookingComplete(patientId: bookingList[index].patientId.toString(),bookid: bookingList[index].id.toString(),)),
-                      );
-                       }),
-  
 
 
-                 ],),
-               ),
-           );
+                  ],),
+                ),
+              );
             }),
       ),
     );

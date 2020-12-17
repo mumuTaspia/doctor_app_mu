@@ -1,4 +1,5 @@
 
+import 'package:doctor_app_mu/Login.dart';
 import 'package:doctor_app_mu/Model/doctorModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -36,14 +37,15 @@ class _ThanksState extends State<ThanksSignUp> {
             Center(
               child: Text("Thanks",style: TextStyle(fontSize: 22),),
             ),Center(
-    child: Text("Your SignUp Complete",style: TextStyle(fontSize: 22),),
+    child: Text("Your SignUp Complete Please Confirm Email, check inbox or Spam Folder",style: TextStyle(fontSize: 22),),
     ),
 
             RaisedButton(onPressed: (){
               Navigator.pop(context);
-
-          
-       
+         Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Login()),
+                      );
             },
               child: Text("Back to Main Page"),
             )
